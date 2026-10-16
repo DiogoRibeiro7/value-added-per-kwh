@@ -1,0 +1,197 @@
+# Configuration for value-added-per-kwh. Every number below that is an assumption says so, and
+# every sourced number names its source.
+
+paths:
+  raw: data/raw
+  tables: outputs/tables
+  figures: outputs/figures
+
+# --- Across countries ------------------------------------------------------------------------
+countries:
+  owid:
+    # Our World in Data energy dataset, pinned to one commit so the figures can be reproduced.
+    url: "https://raw.githubusercontent.com/owid/energy-data/f8de88a4f6f9cab44f1cf606047cbd6c4414042c/owid-energy-data.csv"
+    sha256: "266f2e2baad7975351bc9bb4aa061d22b1da9fe4c47d51d2ac6071e01e171f76"
+  year: 2022                 # latest year with GDP (Maddison Project) in the dataset
+  min_population: 250000     # drops microstates, keeps Iceland
+  income_thresholds: [20000, 25000, 30000, 40000]   # GDP per person, 2011 international dollars
+  aluminium:
+    # Electricity per tonne of primary aluminium (AC, smelting): the International Aluminium
+    # Institute's 2022 average outside China, 15,008 kWh/t (as quoted in an IAI-hosted report;
+    # China 13,448). Overstates China's share, which stays below the 10% marked in the figure.
+    mwh_per_tonne: 15.0
+    # Primary aluminium output, 2022, thousand tonnes. British Geological Survey, World Mineral
+    # Production 2018-2022 (2024), table 'Production of primary aluminium'; India from USGS
+    # Mineral Commodity Summaries 2024 (the BGS 2022 India figure looks incomplete). Spain
+    # produced none in 2022 (San Ciprian shut down; USGS). Values marked * are BGS estimates.
+    production_kt:
+      China: {kt: 40214.0, year: 2022, source: "BGS World Mineral Production 2018-2022, primary aluminium"}
+      Russia: {kt: 4014.0, year: 2022, source: "BGS World Mineral Production 2018-2022, primary aluminium"}
+      Canada: {kt: 3026.236, year: 2022, source: "BGS World Mineral Production 2018-2022, primary aluminium"}
+      United Arab Emirates: {kt: 2720.0, year: 2022, source: "BGS World Mineral Production 2018-2022, primary aluminium"}
+      Bahrain: {kt: 1600.111, year: 2022, source: "BGS World Mineral Production 2018-2022, primary aluminium"}
+      Australia: {kt: 1494.598, year: 2022, source: "BGS World Mineral Production 2018-2022, primary aluminium"}
+      Norway: {kt: 1393.0, year: 2022, source: "BGS World Mineral Production 2018-2022, primary aluminium"}
+      Malaysia: {kt: 928.0, year: 2022, source: "BGS World Mineral Production 2018-2022, primary aluminium*"}
+      United States: {kt: 872.3, year: 2022, source: "BGS World Mineral Production 2018-2022, primary aluminium"}
+      Brazil: {kt: 810.9, year: 2022, source: "BGS World Mineral Production 2018-2022, primary aluminium"}
+      Saudi Arabia: {kt: 776.4, year: 2022, source: "BGS World Mineral Production 2018-2022, primary aluminium"}
+      Iceland: {kt: 756.012, year: 2022, source: "BGS World Mineral Production 2018-2022, primary aluminium"}
+      South Africa: {kt: 718.0, year: 2022, source: "BGS World Mineral Production 2018-2022, primary aluminium"}
+      Qatar: {kt: 638.0, year: 2022, source: "BGS World Mineral Production 2018-2022, primary aluminium"}
+      Iran: {kt: 632.166, year: 2022, source: "BGS World Mineral Production 2018-2022, primary aluminium"}
+      Mozambique: {kt: 576.22, year: 2022, source: "BGS World Mineral Production 2018-2022, primary aluminium"}
+      France: {kt: 410.0, year: 2022, source: "BGS World Mineral Production 2018-2022, primary aluminium"}
+      Argentina: {kt: 400.038, year: 2022, source: "BGS World Mineral Production 2018-2022, primary aluminium"}
+      Oman: {kt: 394.8, year: 2022, source: "BGS World Mineral Production 2018-2022, primary aluminium"}
+      Germany: {kt: 341.0, year: 2022, source: "BGS World Mineral Production 2018-2022, primary aluminium"}
+      New Zealand: {kt: 333.689, year: 2022, source: "BGS World Mineral Production 2018-2022, primary aluminium"}
+      Egypt: {kt: 260.0, year: 2022, source: "BGS World Mineral Production 2018-2022, primary aluminium*"}
+      Kazakhstan: {kt: 258.5, year: 2022, source: "BGS World Mineral Production 2018-2022, primary aluminium"}
+      Indonesia: {kt: 223.8, year: 2022, source: "BGS World Mineral Production 2018-2022, primary aluminium"}
+      Romania: {kt: 191.454, year: 2022, source: "BGS World Mineral Production 2018-2022, primary aluminium"}
+      Greece: {kt: 187.1, year: 2022, source: "BGS World Mineral Production 2018-2022, primary aluminium"}
+      Sweden: {kt: 120.0, year: 2022, source: "BGS World Mineral Production 2018-2022, primary aluminium"}
+      Turkey: {kt: 82.0, year: 2022, source: "BGS World Mineral Production 2018-2022, primary aluminium"}
+      Slovakia: {kt: 71.933, year: 2022, source: "BGS World Mineral Production 2018-2022, primary aluminium"}
+      Cameroon: {kt: 62.8, year: 2022, source: "BGS World Mineral Production 2018-2022, primary aluminium"}
+      Tajikistan: {kt: 62.0, year: 2022, source: "BGS World Mineral Production 2018-2022, primary aluminium"}
+      Ghana: {kt: 55.592, year: 2022, source: "BGS World Mineral Production 2018-2022, primary aluminium"}
+      Netherlands: {kt: 45.0, year: 2022, source: "BGS World Mineral Production 2018-2022, primary aluminium*"}
+      Montenegro: {kt: 43.196, year: 2022, source: "BGS World Mineral Production 2018-2022, primary aluminium"}
+      Bosnia and Herzegovina: {kt: 37.8, year: 2022, source: "BGS World Mineral Production 2018-2022, primary aluminium"}
+      Azerbaijan: {kt: 33.529, year: 2022, source: "BGS World Mineral Production 2018-2022, primary aluminium"}
+      United Kingdom: {kt: 31.337, year: 2022, source: "BGS World Mineral Production 2018-2022, primary aluminium"}
+      Slovenia: {kt: 19.211, year: 2022, source: "BGS World Mineral Production 2018-2022, primary aluminium"}
+      Venezuela: {kt: 8.4, year: 2022, source: "BGS World Mineral Production 2018-2022, primary aluminium"}
+      India: {kt: 4100, year: 2022, source: "USGS Mineral Commodity Summaries 2024, aluminum (estimate)"}
+
+# --- By sector, Portugal and Spain -------------------------------------------------------------
+sectors:
+  eurostat_api: "https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data"
+  year: 2023
+  geos: [PT, ES]
+  totals: [FC_E, FC_OTH_HH_E]   # final electricity consumption; households (no value added)
+  imputed_rents: L68A           # owner-occupiers' imputed rents: value added with no electricity
+  # Energy-balance sectors (final consumption, energy use, electricity) matched to the NACE Rev. 2
+  # industries of the national accounts, following the sector definitions of the energy balance.
+  # Iron and steel and non-ferrous metals share NACE 24, so they are merged. Transport, the energy
+  # industries and households are left out (see docs/methods.md).
+  mapping:
+    Food, drink, tobacco:      {group: industry, energy: [FC_IND_FBT_E], nace: [C10-C12]}
+    Textiles, leather:         {group: industry, energy: [FC_IND_TL_E], nace: [C13-C15]}
+    Wood:                      {group: industry, energy: [FC_IND_WP_E], nace: [C16]}
+    Paper, printing:           {group: industry, energy: [FC_IND_PPP_E], nace: [C17, C18]}
+    Chemicals, pharma:         {group: industry, energy: [FC_IND_CPC_E], nace: [C20, C21]}
+    Non-metallic minerals:     {group: industry, energy: [FC_IND_NMM_E], nace: [C23]}
+    Basic metals:              {group: industry, energy: [FC_IND_IS_E, FC_IND_NFM_E], nace: [C24]}
+    Machinery, metal products: {group: industry, energy: [FC_IND_MAC_E], nace: [C25, C26, C27, C28]}
+    Transport equipment:       {group: industry, energy: [FC_IND_TE_E], nace: [C29, C30]}
+    Other manufacturing:       {group: industry, energy: [FC_IND_NSP_E], nace: [C22, C31_C32]}
+    Mining, quarrying:         {group: industry, energy: [FC_IND_MQ_E], nace: [B]}
+    Construction:              {group: industry, energy: [FC_IND_CON_E], nace: [F]}
+    Agriculture, forestry:     {group: other, energy: [FC_OTH_AF_E], nace: [A01, A02]}
+    Services:
+      group: services
+      energy: [FC_OTH_CP_E]
+      # Commercial and public services: NACE 33, 36-39, 45-47, 52-53, 55-56, 58-66, 68-75,
+      # 77-82, 84 (excluding 84.22), 85-88, 90-96, 99 (Eurostat Energy Balance Guide). Built,
+      # approximately, as G to U, minus land, water and air transport (49-51) and imputed rents,
+      # plus water supply and waste (E) and repair of machinery (C33); see docs/methods.md.
+      nace: [G-I, J, K, L, M_N, O-Q, R-U, E, C33]
+      minus: [H49, H50, H51, L68A]
+
+# --- Specific uses -----------------------------------------------------------------------------
+uses:
+  usd_per_eur: 1.0824                 # ECB reference rate, 2024 annual average
+  electricity_price_eur_mwh: 63.04    # Spanish day-ahead market, 2024 average (OMIE, via Europa Press)
+  # Each parameter is a central value with a low and a high one. The low case of a use pairs the
+  # low price with the high kWh per unit and the high other inputs. "other_inputs" are purchases
+  # other than electricity (materials, maintenance, insurance, tolls); labour, depreciation,
+  # interest and profit are not inputs, they are what value added pays for.
+  # hours_per_year: full-load hours of a grid connection given to the use (allocation step).
+  items:
+    green_hydrogen:
+      label: Green hydrogen
+      unit: kg
+      currency: EUR
+      # Electrolysis system, kWh per kg. Clean Hydrogen Partnership SRIA KPIs: 2020 state of the
+      # art 50 (alkaline) and 55 (PEM), 2024 targets 49 and 52; the European Hydrogen
+      # Observatory's LCOH calculator manual (2025) uses 52.4.
+      kwh_per_unit: {low: 49, central: 52, high: 55}
+      # Price proxied by the levelised cost of renewable hydrogen, EUR/kg (so value added is what
+      # pays for capital and labour at zero profit). European Hydrogen Observatory, "The European
+      # hydrogen market landscape", Nov 2025: 2024 average 6.7; LCOH calculator manual (2025):
+      # Spain, PV-direct, 5.99. High: market price around 8 (ACER 2025, via pv magazine).
+      price: {low: 6.0, central: 6.7, high: 8.0}
+      other_inputs: {low: 0.1, central: 0.2, high: 0.4}   # ASSUMPTION: water, parts, services
+      hours_per_year: 4000                                # ASSUMPTION: follows cheap hours
+    aluminium:
+      label: Primary aluminium
+      unit: t
+      currency: USD
+      # Smelting AC power, kWh per tonne. IAI 2022 via IAI-hosted report: China 13,448; world
+      # excluding China 15,008; world about 14,100 when weighted by output (derived).
+      kwh_per_unit: {low: 13450, central: 14100, high: 15010}
+      # LME, physical settlement, annual average, USD/t (World Bank Pink Sheet, Feb 2026):
+      # 2023 2,256; 2024 2,419; 2025 2,632.
+      price: {low: 2256, central: 2419, high: 2632}
+      # Alumina 1.92 t/t (Alcoa 10-K 2024: 1.91-1.94) at Alcoa's realised price (2023 358, 2024
+      # 472) or USGS US import value (2024 580): 687 / 906 / 1,114. Carbon (coke 0.35 t, pitch
+      # 0.08 t; CRU 2023) ASSUMPTION 250 / 350 / 450; other materials ASSUMPTION 100 / 150 / 200.
+      other_inputs: {low: 1037, central: 1406, high: 1764}
+      hours_per_year: 8300                                # ASSUMPTION: near-continuous load
+    electric_truck:
+      label: Electric truck, long haul
+      unit: km
+      currency: EUR
+      # 40 t battery-electric tractor-trailer, kWh/km. ADAC test of the eActros 600: 0.88;
+      # Daimler Truck European testing tour 2024: 1.03; ICCT 2025 fleet data, use-case averages
+      # 1.07-1.16 (as reported by trans.info; individual trucks ranged 0.92-1.50).
+      kwh_per_unit: {low: 0.88, central: 1.03, high: 1.16}
+      # Spanish Ministry of Transport cost observatory, 40 t articulated truck (via Fenadismer and
+      # trade press): full cost per km travelled 1.31 (Q1 2024) and 1.32 (Q4 2024); per loaded km
+      # 1.55 (Q4 2025). Revenue taken as cost (no margin); the high case bills every km at the
+      # loaded-km rate.
+      price: {low: 1.31, central: 1.32, high: 1.55}
+      other_inputs: {low: 0.15, central: 0.22, high: 0.30}   # ASSUMPTION: tyres, repairs, insurance, tolls
+      hours_per_year: 3000                                   # ASSUMPTION: depot charging hub
+    data_centre_colocation:
+      label: Data centre, renting space and power
+      unit: kW-month
+      currency: EUR
+      # kWh drawn per kW of IT capacity per month: 730 h x utilisation x PUE, ASSUMPTION
+      # 0.6 x 1.2 / 0.7 x 1.3 / 0.8 x 1.5.
+      kwh_per_unit: {low: 525.6, central: 664.3, high: 876.0}
+      # Rent per kW of IT capacity per month, power billed separately, for 250-500 kW. CBRE:
+      # London USD 180-215 (Q1 2025, release of June 2025); Frankfurt up to EUR 225 (release of
+      # June 2026). Large wholesale blocks rent for less: low case ASSUMPTION.
+      price: {low: 110, central: 170, high: 225}
+      other_inputs: {low: 10, central: 17, high: 25}      # ASSUMPTION: about 10% of rent
+      electricity_passed_through: true
+      hours_per_year: 6100                                # ASSUMPTION: 70% average draw
+    data_centre_gpu:
+      label: Data centre, renting out GPUs
+      unit: GPU-hour
+      currency: USD
+      # kWh per H100 GPU-hour: 1.275 kW per GPU at the server's maximum (NVIDIA DGX H100: 10.2 kW
+      # for 8 GPUs) x average load x PUE, ASSUMPTION 0.7 x 1.2 / 0.8 x 1.3 / 1.0 x 1.5.
+      kwh_per_unit: {low: 1.071, central: 1.326, high: 1.913}
+      # On-demand price per H100 GPU-hour, 2025 (Silicon Data index): marketplace about 2.0,
+      # neoclouds about 3.0-3.4, hyperscalers 6.94 in June 2025.
+      price: {low: 2.0, central: 3.0, high: 6.9}
+      other_inputs: {low: 0.2, central: 0.3, high: 0.5}   # ASSUMPTION: software, network, parts
+      hours_per_year: 6100                                # ASSUMPTION: 70% average draw
+
+# --- One grid connection ---------------------------------------------------------------------
+allocation:
+  mw: 100
+
+figures:
+  country_labels: [Tajikistan, India, Iceland, Norway, Bahrain, Mozambique, Portugal, Spain, Qatar,
+                   Chad, Kyrgyzstan, China, Cameroon]
+  smelter_share: 0.1     # countries marked in the scatter
+  country_label_offsets: {Portugal: [-5, -10], Spain: [5, -10], India: [5, -9], China: [-5, 3],
+                          Tajikistan: [5, -9]}
+  uses_geo: ES
+  uses_note: "Sources and assumptions: config/default.yaml and docs/methods.md."

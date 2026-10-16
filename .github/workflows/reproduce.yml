@@ -1,0 +1,24 @@
+name: Reproduce
+
+# Downloads the data, reruns every step and fails if the committed tables change. Run it by
+# hand (Actions > Reproduce > Run workflow); Eurostat revises its tables from time to time.
+on:
+  workflow_dispatch:
+
+jobs:
+  reproduce:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: pip install -e .
+      - run: kwh-value all -v
+      - name: Committed tables match the rerun
+        run: git diff --stat --exit-code -- outputs/tables
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: outputs
+          path: outputs/

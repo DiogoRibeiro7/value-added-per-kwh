@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "value-added-per-kwh: value added per kWh of electricity across countries, by sector in Portugal and Spain, and by use"
+type: software
+version: 0.1.0
+license: Apache-2.0
+authors:
+  - family-names: Ribeiro
+    given-names: Diogo
+    orcid: "https://orcid.org/0009-0001-2022-7072"
+    email: dfr@esmad.ipp.pt
+keywords:
+  - electricity
+  - value added
+  - national accounts
+  - energy balance
+  - Portugal
+  - Spain
